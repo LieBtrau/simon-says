@@ -3,8 +3,8 @@
 ARDUINO_DIR     = /usr/share/arduino
 TARGET          = output
 ARDUINO_LIBS    =  
-ARDUINO_VAR_PATH  = /home/ctack/sketchbook/hardware/tiny/cores/tiny
-ARDUINO_CORE_PATH = /usr/avr/include
+ARDUINO_VAR_PATH  = /usr/avr/include
+ARDUINO_CORE_PATH = /home/ctack/sketchbook/hardware/tiny/cores/tiny
 
 # Avrdude code for programming
 BOARD_TAG               = attiny84at1
