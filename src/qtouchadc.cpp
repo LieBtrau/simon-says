@@ -1,12 +1,12 @@
 //Adapted from http://wiki.sgmk-ssam.ch/index.php/CapSense_%28QTouchADC%29
-//nice explanation of working principle can be found on: http://tuomasnylund.fi/drupal6/content/capacitive-touch-sensing-avr-and-single-adc-pin
+//nice explanation of working principle of QTouchAdc can be found on:
+//  http://tuomasnylund.fi/drupal6/content/capacitive-touch-sensing-avr-and-single-adc-pin
 
 #include "qtouchadc.h"
 
-QtouchAdc::QtouchAdc(adc_ic_t sensorPinADC, adc_ic_t partnerPinADC)
+QtouchAdc::QtouchAdc(adc_ic_t sensorPinADC, adc_ic_t partnerPinADC, word wTouchLimit):
+    _sensorBitnr(sensorPinADC), _partnerBitnr(partnerPinADC), _wTouchLimit(wTouchLimit)
 {
-    _sensorBitnr=sensorPinADC;
-    _partnerBitnr=partnerPinADC;
     _pinMask=_BV(_sensorBitnr) | _BV(_partnerBitnr);
 }
 
@@ -19,11 +19,15 @@ QtouchAdc::~QtouchAdc()
     while(ADC_ConversionInProgress());
 }
 
+bool QtouchAdc::isButtonTouched(int& wTouchValue){
+    wTouchValue=touchProbe2();
+    return wTouchValue>_wTouchLimit;
+}
+
 //Don't try to use digitalWrite & pinMode, they influence the measurement result
-//returns: 270 untouched to 720 touched
-word QtouchAdc::touchProbe2(){
+int QtouchAdc::touchProbe2(){
     const byte CTR=2;//pick a value from 0 to 7 for the loop counter.  Number of loops is 2^CTR
-    word result=0;
+    int result=0;
 
     for(byte i=0;i<_BV(CTR);i++){
         ADC_SetInputChannel(_partnerBitnr);

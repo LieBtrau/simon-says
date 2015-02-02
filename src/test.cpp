@@ -29,7 +29,10 @@ const byte PIN_SPEAKER=3;
 byte iCtr=0;
 TinyDebugSerial mySerial = TinyDebugSerial();
 Music ms(PIN_SPEAKER);
-QtouchAdc qt(ADC_Input_ADC0, ADC_Input_ADC1);
+//returns for bare copper: 72 untouched to 860 touched
+//returns for copper covered with plastic tape: 20 untouched to 320 touched
+//Touch limit values are average of untouched and touched conditions.  These are determined by testing each pad.
+QtouchAdc qt(ADC_Input_ADC0, ADC_Input_ADC1, 200);
 
 void setup()
 {
@@ -46,9 +49,13 @@ void setup()
 
 void loop()
 {
-    mySerial.println(qt.touchProbe2());
+    int value;
+    if(qt.isButtonTouched(value)){
+        mySerial.print("pushed");
+    }
+    mySerial.println(value);
     delay(1000);
-//    digitalWrite(PIN_LED_GREEN, LOW);
+ //    digitalWrite(PIN_LED_GREEN, LOW);
 //    //digitalWrite(PIN_LED_RED, LOW);
 //    digitalWrite(PIN_LED_ORANGE, LOW);
 //    digitalWrite(PIN_LED_YELLOW, LOW);
