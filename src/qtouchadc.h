@@ -8,7 +8,7 @@ class QtouchAdc
 public:
     QtouchAdc(adc_ic_t sensorPinADC, adc_ic_t partnerPinADC, word wTouchLimit);
     ~QtouchAdc();
-    bool isButtonTouched(int &wTouchValue);
+    bool isButtonTouched(int &iTouchValue);
     int touchProbe2();
 
 private:
@@ -16,7 +16,7 @@ private:
     static const byte TRANSFER_DELAY=30;            // time it takes for the capacitors to exchange charge
     adc_ic_t _sensorBitnr;
     adc_ic_t _partnerBitnr;
-    word _wTouchLimit;
+    int _iTouchLimit;
     byte _pinMask;
 };
 

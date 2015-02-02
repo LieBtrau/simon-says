@@ -67,6 +67,10 @@ Music::~Music()
 
 }
 
+void Music::playTone(word freq, word duration){
+    tone(_pinNr, freq, duration);
+}
+
 void Music::playMusic(){
     sing(melody, tempo, 78);
 }

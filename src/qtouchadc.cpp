@@ -5,7 +5,7 @@
 #include "qtouchadc.h"
 
 QtouchAdc::QtouchAdc(adc_ic_t sensorPinADC, adc_ic_t partnerPinADC, word wTouchLimit):
-    _sensorBitnr(sensorPinADC), _partnerBitnr(partnerPinADC), _wTouchLimit(wTouchLimit)
+    _sensorBitnr(sensorPinADC), _partnerBitnr(partnerPinADC), _iTouchLimit(wTouchLimit)
 {
     _pinMask=_BV(_sensorBitnr) | _BV(_partnerBitnr);
 }
@@ -19,9 +19,9 @@ QtouchAdc::~QtouchAdc()
     while(ADC_ConversionInProgress());
 }
 
-bool QtouchAdc::isButtonTouched(int& wTouchValue){
-    wTouchValue=touchProbe2();
-    return wTouchValue>_wTouchLimit;
+bool QtouchAdc::isButtonTouched(int& iTouchValue){
+    iTouchValue=touchProbe2();
+    return iTouchValue>_iTouchLimit;
 }
 
 //Don't try to use digitalWrite & pinMode, they influence the measurement result

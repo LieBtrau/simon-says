@@ -7,6 +7,7 @@ class Music
 public:
     Music(byte pinNr);
     ~Music();
+    void playTone(word freq, word duration);
     void winner_sound(void);
     void playMusic();
 private:
