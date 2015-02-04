@@ -25,7 +25,7 @@ const byte PIN_LED_D1=4;
 const byte PIN_LED_D2=0;
 const byte PIN_LED_D3=1;
 const byte PIN_LED_D4=2;
-const byte PIN_SPEAKER=3;
+const byte PIN_SPEAKER=5;
 byte iCtr=0;
 TinyDebugSerial mySerial = TinyDebugSerial();
 Music ms(PIN_SPEAKER);
@@ -46,7 +46,12 @@ void setup()
     pinMode(PIN_LED_D3, OUTPUT);
     pinMode(PIN_LED_D4, OUTPUT);
     pinMode(PIN_SPEAKER, OUTPUT);
+    ms.init();
+    ms.winner_sound();
     ms.playMusic();
+    delay(3000);
+    ms.playMusic();
+
 }
 
 void loop()

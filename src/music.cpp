@@ -1,6 +1,7 @@
 #include "music.h"
 #include "avr/pgmspace.h"
 #include "pitches.h"
+#include "core_timers.h"
 
 //Mario main theme melody
 const word melody[] PROGMEM = {
@@ -68,7 +69,7 @@ Music::~Music()
 }
 
 void Music::playTone(word freq, word duration){
-    tone(_pinNr, freq, duration);
+    tone(freq, duration);
 }
 
 void Music::playMusic(){
@@ -94,21 +95,40 @@ void Music::winner_sound(void)
 }
 
 void Music::sing(const word* tones, const byte* tempos, int size) {
-    for (int thisNote = 0; thisNote < size; thisNote++) {
-
+    for (int thisNote = 0; thisNote < size; thisNote++)
+    {
         // to calculate the note duration, take one second
         // divided by the note type.
         //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
-        int noteDuration = 1000 / pgm_read_byte(&tempos[thisNote]);
+        word noteDuration = 1000 / pgm_read_byte(&tempos[thisNote]);
 
-        tone(_pinNr, pgm_read_word(&tones[thisNote]), noteDuration);
+        tone(pgm_read_word(&tones[thisNote]), noteDuration);
 
         // to distinguish the notes, set a minimum time between them.
-        // the note's duration + 30% seems to work well:
-        int pauseBetweenNotes = noteDuration * 1.30;
+        // the note's duration seems to work well:
+        int pauseBetweenNotes = noteDuration * 1;
         delay(pauseBetweenNotes);
-
-        // stop the tone playing:
-        tone(_pinNr, 0, noteDuration);
     }
+}
+
+
+void Music::tone(word freq, byte duration){
+    //focr=fclk/(N*(1+TOP)) => TOP = fclk / (focr * N) - 1 = 1MHz / (freq*1)-1
+    word ocrA;
+    if(freq)
+    {
+        ocrA=1e6/freq-1;
+        Timer1_SetOutputCompareMatchA(ocrA);
+        Timer1_SetOutputCompareMatchB(ocrA>>1);     //Set OCRB to OCRA/2 to generate 50% duty cycle
+        Timer1_SetCompareOutputModeB(Timer1_Clear); //Connect OCRB to output 5
+    }
+    delay(duration);
+    Timer1_SetCompareOutputModeB(Timer1_Disconnected);//Disconnect OCRB from output 5
+}
+
+void Music::init(){
+    pinMode(_pinNr, OUTPUT);
+    Timer1_ClockSelect(Timer1_Prescale_Value_1);
+    Timer1_SetWaveformGenerationMode(Timer1_Fast_PWM_OCR);
+    Timer1_SetCompareOutputModeB(Timer1_Disconnected);
 }
