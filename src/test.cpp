@@ -21,7 +21,7 @@ Clean steps : make clean
 */
 
 // Define the pin where the led is connected
-const byte PIN_LED_D1=4;
+const byte PIN_LED_D1=3;
 const byte PIN_LED_D2=0;
 const byte PIN_LED_D3=1;
 const byte PIN_LED_D4=2;
