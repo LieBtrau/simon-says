@@ -3,16 +3,16 @@ Based on code from Spark Fun Electronics, Nathan Seidle
 */
 
 // Access to the Arduino Libraries
-#include "test.h"
+#include "game.h"
 // Define game parameters
 const byte ROUNDS_TO_WIN=13;        //Number of rounds to succesfully remember before you win. 13 is do-able.
 const word ENTRY_TIME_LIMIT=5000;   //Amount of time to press a button before game times out. 3000ms = 3 sec
 
 // Define the pin where the led is connected
-const byte LED_GREEN=3;
 const byte LED_RED=0;
-const byte LED_YELLOW=1;
-const byte LED_BLUE=2;
+const byte LED_BLUE=1;
+const byte LED_YELLOW=2;
+const byte LED_GREEN=3;
 
 const byte PIN_SPEAKER=5;
 TinyDebugSerial mySerial = TinyDebugSerial();
@@ -22,10 +22,6 @@ QtouchAdc qtBLUE(ADC_Input_ADC0, ADC_Input_ADC1, 170);
 QtouchAdc qtRED(ADC_Input_ADC1, ADC_Input_ADC2, 90);
 QtouchAdc qtGREEN(ADC_Input_ADC2, ADC_Input_ADC3, 100);
 QtouchAdc qtYELLOW(ADC_Input_ADC3, ADC_Input_ADC0, 100);
-
-// Game state variables
-byte gameBoard[32]; //Contains the combination of buttons as we advance
-byte gameRound = 0; //Counts the number of succesful rounds the player has made it through
 
 void setup()
 {
@@ -81,12 +77,16 @@ void loop()
 // Returns 0 if player loses, or 1 if player wins
 boolean play_memory(void)
 {
+    // Game state variables
+    byte gameBoard[32]; //Contains the combination of buttons as we advance
+    byte gameRound = 0; //Counts the number of succesful rounds the player has made it through
+
     randomSeed(millis()); // Seed the random generator with random amount of millis()
     
     for(gameRound=0; gameRound < ROUNDS_TO_WIN; gameRound++)
     {
         gameBoard[gameRound] = 1<<random(0, 4); //min (included), max (exluded) // Add this new button to the game array
-        playMoves(); // Play back the current game board
+        playMoves(gameBoard, gameRound); // Play back the current game board
         // Then require the player to repeat the sequence.
         for (byte currentMove = 0 ; currentMove <= gameRound ; currentMove++)
         {
@@ -100,9 +100,9 @@ boolean play_memory(void)
 }
 
 // Plays the current contents of the game moves
-void playMoves(void)
+void playMoves(byte* gameBoard, byte gameRound)
 {
-    for (byte currentMove = 0 ; currentMove < gameRound ; currentMove++)
+    for (byte currentMove = 0 ; currentMove <= gameRound ; currentMove++)
     {
         toner(gameBoard[currentMove], 150);
         // Wait some amount of time between button playback

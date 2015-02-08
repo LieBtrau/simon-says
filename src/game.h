@@ -12,9 +12,9 @@ extern "C" {    //define avr-gcc compiled headers & sources here
 enum{
     CHOICE_OFF=0,
     CHOICE_RED=1,
-    CHOICE_GREEN=2,
-    CHOICE_BLUE=4,
-    CHOICE_YELLOW=8
+    CHOICE_BLUE=2,
+    CHOICE_YELLOW=4,
+    CHOICE_GREEN=8
 }CHOICE;
 byte CHOICE_NONE=0;
 
@@ -23,7 +23,7 @@ void setup();
 void attractMode(void);
 void setLEDs(byte leds);
 boolean play_memory(void);
-void playMoves(void);
+void playMoves(byte *gameBoard, byte gameRound);
 byte wait_for_button(void);
 void toner(byte which, int buzz_length_ms);
 byte checkButton(void);
