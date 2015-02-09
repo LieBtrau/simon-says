@@ -3,60 +3,49 @@
 #include "pitches.h"
 #include "core_timers.h"
 
+//Octave 9 frequencies
+//                     C9    C#9,  D9    D#9   E9     F9     F#9    G9     G#9    A9     A#9    B9
+const word freqs[]={0, 8372, 8870, 9397, 9956, 10548, 11175, 11840, 12544, 13290, 14080, 14917, 15804};
+
 //Mario main theme melody
-const word melody[] PROGMEM = {
-    NOTE_E7, NOTE_E7, 0, NOTE_E7,
-    0, NOTE_C7, NOTE_E7, 0,
-    NOTE_G7, 0, 0,  0,
-    NOTE_G6, 0, 0, 0,
-
-    NOTE_C7, 0, 0, NOTE_G6,
-    0, 0, NOTE_E6, 0,
-    0, NOTE_A6, 0, NOTE_B6,
-    0, NOTE_AS6, NOTE_A6, 0,
-
-    NOTE_G6, NOTE_E7, NOTE_G7,
-    NOTE_A7, 0, NOTE_F7, NOTE_G7,
-    0, NOTE_E7, 0, NOTE_C7,
-    NOTE_D7, NOTE_B6, 0, 0,
-
-    NOTE_C7, 0, 0, NOTE_G6,
-    0, 0, NOTE_E6, 0,
-    0, NOTE_A6, 0, NOTE_B6,
-    0, NOTE_AS6, NOTE_A6, 0,
-
-    NOTE_G6, NOTE_E7, NOTE_G7,
-    NOTE_A7, 0, NOTE_F7, NOTE_G7,
-    0, NOTE_E7, 0, NOTE_C7,
-    NOTE_D7, NOTE_B6, 0, 0
+const word melody1[] PROGMEM = {
+    N_E|O7|L1_8, N_E|O7|L1_4, N_E|O7|L1_4, N_C|O7|L1_8, N_E|O7|L1_4,
+    N_G|O7|L1_4, N_OFF|L1_4, N_G|O6|L1_4, N_OFF|L1_4
 };
-//Mario main them tempo
-const byte tempo[] PROGMEM = {
-    12, 12, 12, 12,
-    12, 12, 12, 12,
-    12, 12, 12, 12,
-    12, 12, 12, 12,
-
-    12, 12, 12, 12,
-    12, 12, 12, 12,
-    12, 12, 12, 12,
-    12, 12, 12, 12,
-
-    9, 9, 9,
-    12, 12, 12, 12,
-    12, 12, 12, 12,
-    12, 12, 12, 12,
-
-    12, 12, 12, 12,
-    12, 12, 12, 12,
-    12, 12, 12, 12,
-    12, 12, 12, 12,
-
-    9, 9, 9,
-    12, 12, 12, 12,
-    12, 12, 12, 12,
-    12, 12, 12, 12,
+const word melody2[] PROGMEM = {
+    N_C|O7|L1_4|_D, N_G|O6|L1_4|_D, N_E|O6|L1_4,
+    N_OFF|L1_8, N_A|O6|L1_4, N_B|O6|L1_4, N_AS|O6|L1_8, N_A|O6|L1_4,
+    N_G|O6|L1_4, N_E|O7|L1_4, N_G|O7|L1_4, N_A|O7|L1_4, N_F|O7|L1_8, N_G|O7|L1_4,
+    N_E|O7|L1_4, N_C|O7|L1_8, N_D|O7|L1_8, N_B|O6|L1_8, N_OFF|L1_4
 };
+const word melody3[] PROGMEM = {
+    N_OFF|L1_4, N_G|O7|L1_8, N_FS|O7|L1_8, N_F|O7|L1_8, N_DS|O7|L1_4, N_E|O7|L1_8,
+    N_OFF|L1_8, N_GS|O6|L1_8, N_A|O6|L1_8, N_C|O7|L1_8, N_OFF|L1_8, N_A|O6|L1_8, N_C|O7|L1_8, N_D|O7|L1_8,
+    //29s
+};
+
+void Music::sing(const word* tones, int size) {
+    for (int thisNote = 0; thisNote < size; thisNote++)
+    {
+        word note=pgm_read_word(&tones[thisNote]);
+        word noteDuration = 8000U;
+
+        //Calculate notelength
+        noteDuration>>=(note & LENGTHMASK)>>8;
+        if(note & _D){
+            noteDuration+=noteDuration>>1;
+        }
+        //Calculate frequency
+        word frequency=freqs[(note & NOTEMASK)>>4];
+        frequency>>=(note & OCTAVEMASK);
+        tone(frequency, noteDuration);
+
+        // to distinguish the notes, set a minimum time between them.
+        // the note's duration seems to work well:
+        delay(200);
+    }
+}
+
 
 Music::Music(byte pinNr):_pinNr(pinNr)
 {
@@ -73,7 +62,10 @@ void Music::playTone(word freq, word duration){
 }
 
 void Music::playMusic(){
-    sing(melody, tempo, 78);
+    sing(melody1, sizeof(melody1)/sizeof(word));
+    sing(melody2, sizeof(melody2)/sizeof(word));
+    sing(melody2, sizeof(melody2)/sizeof(word));
+    sing(melody3, sizeof(melody3)/sizeof(word));
 }
 
 // Play the winner sound
@@ -94,25 +86,7 @@ void Music::winner_sound(void)
     }
 }
 
-void Music::sing(const word* tones, const byte* tempos, int size) {
-    for (int thisNote = 0; thisNote < size; thisNote++)
-    {
-        // to calculate the note duration, take one second
-        // divided by the note type.
-        //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
-        word noteDuration = 1000 / pgm_read_byte(&tempos[thisNote]);
-
-        tone(pgm_read_word(&tones[thisNote]), noteDuration);
-
-        // to distinguish the notes, set a minimum time between them.
-        // the note's duration seems to work well:
-        int pauseBetweenNotes = noteDuration * 1;
-        delay(pauseBetweenNotes);
-    }
-}
-
-
-void Music::tone(word freq, byte duration){
+void Music::tone(word freq, word duration){
     //focr=fclk/(N*(1+TOP)) => TOP = fclk / (focr * N) - 1 = 1MHz / (freq*1)-1
     word ocrA;
     if(freq)

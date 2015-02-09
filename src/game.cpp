@@ -33,6 +33,7 @@ void setup()
     pinMode(LED_BLUE, OUTPUT);
     ms.init();
 //    mySerial.begin(9600);
+    ms.playMusic();
 }
 
 //void loop()
