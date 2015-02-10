@@ -19,9 +19,20 @@ const word melody2[] PROGMEM = {
     N_E|O7|L1_4, N_C|O7|L1_8, N_D|O7|L1_8, N_B|O6|L1_8, N_OFF|L1_4
 };
 const word melody3[] PROGMEM = {
-    N_OFF|L1_4, N_G|O7|L1_8, N_FS|O7|L1_8, N_F|O7|L1_8, N_DS|O7|L1_4, N_E|O7|L1_8,
-    N_OFF|L1_8, N_GS|O6|L1_8, N_A|O6|L1_8, N_C|O7|L1_8, N_OFF|L1_8, N_A|O6|L1_8, N_C|O7|L1_8, N_D|O7|L1_8,
-    //29s
+    N_OFF|L1_4, N_G|O7|L1_8, N_FS|O7|L1_8, N_F|O7|L1_8, N_DS|O7|L1_4, N_E|O7|L1_8
+};
+const word melody4[] PROGMEM = {
+    N_OFF|L1_8, N_GS|O6|L1_8, N_A|O6|L1_8, N_C|O7|L1_8, N_OFF|L1_8, N_A|O6|L1_8, N_C|O7|L1_8, N_D|O7|L1_8
+};
+const word melody5[] PROGMEM = {
+    N_OFF|L1_8, N_C|O8|L1_8, N_OFF|L1_8, N_C|O8|L1_8, N_C|O8|L1_4, N_OFF|L1_4
+};
+const word melody6[] PROGMEM = {
+    N_OFF|L1_4, N_DS|O7|L1_4, N_OFF|L1_8, N_D|O7|L1_4, N_OFF|L1_8,
+    N_C|O7|L1_2, N_OFF|L1_2,
+    N_C|O7|L1_8, N_C|O7|L1_4, N_C|O7|L1_4, N_C|O7|L1_8, N_D|O7|L1_4,
+    N_E|O7|L1_8, N_C|O7|L1_4, N_A|O6|L1_8, N_G|O6|L1_4, N_OFF|L1_4
+    //44s
 };
 
 void Music::sing(const word* tones, int size) {
@@ -66,6 +77,12 @@ void Music::playMusic(){
     sing(melody2, sizeof(melody2)/sizeof(word));
     sing(melody2, sizeof(melody2)/sizeof(word));
     sing(melody3, sizeof(melody3)/sizeof(word));
+    sing(melody4, sizeof(melody4)/sizeof(word));
+    sing(melody3, sizeof(melody3)/sizeof(word));
+    sing(melody5, sizeof(melody5)/sizeof(word));
+    sing(melody3, sizeof(melody3)/sizeof(word));
+    sing(melody4, sizeof(melody4)/sizeof(word));
+    sing(melody6, sizeof(melody6)/sizeof(word));
 }
 
 // Play the winner sound
