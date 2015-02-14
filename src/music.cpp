@@ -7,39 +7,39 @@
 //                     C9    C#9,  D9    D#9   E9     F9     F#9    G9     G#9    A9     A#9    B9
 const word freqs[]={0, 8372, 8870, 9397, 9956, 10548, 11175, 11840, 12544, 13290, 14080, 14917, 15804};
 
-//Mario main theme melody
+//Super Mario Overworld theme by Koji Kondo
 const word melody1[] PROGMEM = {
-    N_E|O7|L1_8, N_E|O7|L1_4, N_E|O7|L1_4, N_C|O7|L1_8, N_E|O7|L1_4,
-    N_G|O7|L1_4, N_OFF|L1_4, N_G|O6|L1_4, N_OFF|L1_4
+    N_E|O7|L1_8, N_E|O7|L1_8, N_OFF|L1_8, N_E|O7|L1_8, N_OFF|L1_8, N_C|O7|L1_8, N_E|O7|L1_8, N_OFF|L1_8,
+    N_G|O7|L1_8, N_OFF|L1_8, N_OFF|L1_4, N_G|O6|L1_8, N_OFF|L1_4, N_OFF|L1_8, N_OFF|L1_4,
 };
+
 const word melody2[] PROGMEM = {
-    N_C|O7|L1_4|_D, N_G|O6|L1_4|_D, N_E|O6|L1_4,
-    N_OFF|L1_8, N_A|O6|L1_4, N_B|O6|L1_4, N_AS|O6|L1_8, N_A|O6|L1_4,
-    N_G|O6|L1_4, N_E|O7|L1_4, N_G|O7|L1_4, N_A|O7|L1_4, N_F|O7|L1_8, N_G|O7|L1_4,
-    N_E|O7|L1_4, N_C|O7|L1_8, N_D|O7|L1_8, N_B|O6|L1_8, N_OFF|L1_4
+    N_C|O7|L1_8, N_OFF|L1_4,  N_G|O6|L1_8, N_OFF|L1_4, N_E|O6|L1_8, N_OFF|L1_8,
+    N_OFF|L1_8, N_A|O6|L1_8, N_OFF|L1_8, N_B|O6|L1_8, N_OFF|L1_8, N_AS|O6|L1_8, N_A|O6|L1_8, N_OFF|L1_8,
+    N_G|O6|L1_8, N_OFF|L1_8, N_E|O7|L1_8, N_OFF|L1_8, N_G|O7|L1_8, N_OFF|L1_8, N_A|O7|L1_8, N_OFF|L1_8,
+    N_OFF|L1_8, N_F|O7|L1_8, N_G|O7|L1_8, N_OFF|L1_8, N_E|O7|L1_8, N_OFF|L1_8, N_C|O7|L1_8, N_D|O7|L1_8,
+    N_B|O6|L1_8, N_OFF|L1_4,
 };
+
 const word melody3[] PROGMEM = {
-    N_OFF|L1_4, N_G|O7|L1_8, N_FS|O7|L1_8, N_F|O7|L1_8, N_DS|O7|L1_4, N_E|O7|L1_8
-};
-const word melody4[] PROGMEM = {
+    N_OFF|L1_4, N_G|O7|L1_8, N_FS|O7|L1_8, N_F|O7|L1_8, N_DS|O7|L1_8, N_OFF|L1_8, N_E|O7|L1_8,
     N_OFF|L1_8, N_GS|O6|L1_8, N_A|O6|L1_8, N_C|O7|L1_8, N_OFF|L1_8, N_A|O6|L1_8, N_C|O7|L1_8, N_D|O7|L1_8
 };
-const word melody5[] PROGMEM = {
-    N_OFF|L1_8, N_C|O8|L1_8, N_OFF|L1_8, N_C|O8|L1_8, N_C|O8|L1_4, N_OFF|L1_4
+
+const word melody4[] PROGMEM = {
+    N_OFF|L1_4, N_G|O7|L1_8, N_FS|O7|L1_8, N_F|O7|L1_8, N_DS|O7|L1_8, N_OFF|L1_8, N_E|O7|L1_8,
+    N_OFF|L1_8, N_C|O8|L1_8, N_OFF|L1_8, N_C|O8|L1_8, N_C|O8|L1_8, N_OFF|L1_8, N_OFF|L1_4,
 };
-const word melody6[] PROGMEM = {
-    N_OFF|L1_4, N_DS|O7|L1_4, N_OFF|L1_8, N_D|O7|L1_4, N_OFF|L1_8,
-    N_C|O7|L1_2, N_OFF|L1_2,
-    N_C|O7|L1_8, N_C|O7|L1_4, N_C|O7|L1_4, N_C|O7|L1_8, N_D|O7|L1_4,
-    N_E|O7|L1_8, N_C|O7|L1_4, N_A|O6|L1_8, N_G|O6|L1_4, N_OFF|L1_4
-    //44s
+const word melody5[] PROGMEM = {
+    N_OFF|L1_4, N_DS|O7|L1_8,  N_OFF|L1_8, N_OFF|L1_8, N_D|O7|L1_8, N_OFF|L1_4, N_C|O7|L1_8,
+    N_OFF|L1_8, N_OFF|L1_4, N_OFF|L1_2
 };
 
 void Music::sing(const word* tones, int size) {
     for (int thisNote = 0; thisNote < size; thisNote++)
     {
         word note=pgm_read_word(&tones[thisNote]);
-        word noteDuration = 8000U;
+        word noteDuration = 2000U;
 
         //Calculate notelength
         noteDuration>>=(note & LENGTHMASK)>>8;
@@ -80,9 +80,15 @@ void Music::playMusic(){
     sing(melody4, sizeof(melody4)/sizeof(word));
     sing(melody3, sizeof(melody3)/sizeof(word));
     sing(melody5, sizeof(melody5)/sizeof(word));
-    sing(melody3, sizeof(melody3)/sizeof(word));
-    sing(melody4, sizeof(melody4)/sizeof(word));
-    sing(melody6, sizeof(melody6)/sizeof(word));
+//    sing(melody3, sizeof(melody3)/sizeof(word));
+//    sing(melody4, sizeof(melody4)/sizeof(word));
+//    sing(melody6, sizeof(melody6)/sizeof(word));
+//    sing(melody7, sizeof(melody7)/sizeof(word));
+//    sing(melody8, sizeof(melody8)/sizeof(word));
+//    sing(melody7, sizeof(melody7)/sizeof(word));
+//    sing(melody1, sizeof(melody1)/sizeof(word));
+//    sing(melody2, sizeof(melody2)/sizeof(word));
+//    sing(melody2, sizeof(melody2)/sizeof(word));
 }
 
 // Play the winner sound
