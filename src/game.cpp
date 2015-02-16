@@ -18,8 +18,8 @@ const byte PIN_SPEAKER=5;
 TinyDebugSerial mySerial = TinyDebugSerial();
 Music ms(PIN_SPEAKER);
 //Touch limit values are average of untouched and touched conditions.  These are determined by testing each pad.
-QtouchAdc qtBLUE(ADC_Input_ADC0, ADC_Input_ADC1, 170);
-QtouchAdc qtRED(ADC_Input_ADC1, ADC_Input_ADC2, 90);
+QtouchAdc qtBLUE(ADC_Input_ADC0, ADC_Input_ADC1, 140);
+QtouchAdc qtRED(ADC_Input_ADC1, ADC_Input_ADC2, 100);
 QtouchAdc qtGREEN(ADC_Input_ADC2, ADC_Input_ADC3, 100);
 QtouchAdc qtYELLOW(ADC_Input_ADC3, ADC_Input_ADC0, 100);
 
@@ -32,15 +32,14 @@ void setup()
     pinMode(LED_YELLOW, OUTPUT);
     pinMode(LED_BLUE, OUTPUT);
     ms.init();
-//    mySerial.begin(9600);
-    ms.playMusic();
+    //mySerial.begin(9600);
+    //ms.playMusic();
 }
 
-//void loop()
-//{
-//    int value;
-//    qtRED.isButtonTouched(value);
-//    mySerial.print(value);
+void loop()
+{
+wait_for_button();
+    //    mySerial.print(value);
 //    mySerial.print(" ");
 //    qtBLUE.isButtonTouched(value);
 //    mySerial.print(value);
@@ -50,26 +49,26 @@ void setup()
 //    mySerial.print(" ");
 //    qtGREEN.isButtonTouched(value);
 //    mySerial.println(value);
-//    delay(1000);
-//}
-
-
-void loop()
-{
-    attractMode(); // Blink lights while waiting for user to press a button
-
-    // Indicate the start of game play
-    setLEDs(CHOICE_RED | CHOICE_GREEN | CHOICE_BLUE | CHOICE_YELLOW); // Turn all LEDs on
-    delay(1000);
-    setLEDs(CHOICE_OFF); // Turn off LEDs
-    delay(250);
-
-        // Play memory game and handle result
-        if (play_memory() == true)
-            play_winner(); // Player won, play winner tones
-        else
-            play_loser(); // Player lost, play loser tones
+//    delay(2000);
 }
+
+
+//void loop()
+//{
+//    attractMode(); // Blink lights while waiting for user to press a button
+
+//    // Indicate the start of game play
+//    setLEDs(CHOICE_RED | CHOICE_GREEN | CHOICE_BLUE | CHOICE_YELLOW); // Turn all LEDs on
+//    delay(1000);
+//    setLEDs(CHOICE_OFF); // Turn off LEDs
+//    delay(250);
+
+//        // Play memory game and handle result
+//        if (play_memory() == true)
+//            play_winner(); // Player won, play winner tones
+//        else
+//            play_loser(); // Player lost, play loser tones
+//}
 
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 //The following functions are related to game play only

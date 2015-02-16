@@ -9,29 +9,29 @@ const word freqs[]={0, 8372, 8870, 9397, 9956, 10548, 11175, 11840, 12544, 13290
 
 //Super Mario Overworld theme by Koji Kondo
 const word melody1[] PROGMEM = {
-    N_E|O7|L1_8, N_E|O7|L1_8, N_OFF|L1_8, N_E|O7|L1_8, N_OFF|L1_8, N_C|O7|L1_8, N_E|O7|L1_8, N_OFF|L1_8,
-    N_G|O7|L1_8, N_OFF|L1_8, N_OFF|L1_4, N_G|O6|L1_8, N_OFF|L1_4, N_OFF|L1_8, N_OFF|L1_4,
+    N_OFF|L1_8, N_E|O7|L1_8, N_E|O7|L1_4, N_OFF|L1_8, N_E|O7|L1_4, N_OFF|L1_8, N_C|O7|L1_8, N_E|O7|L1_4, N_OFF|L1_8,
+    N_G|O7|L1_4, N_OFF|L1_8, N_OFF|L1_4, N_G|O6|L1_4, N_OFF|L1_4, N_OFF|L1_8, N_OFF|L1_4,
 };
 
 const word melody2[] PROGMEM = {
-    N_C|O7|L1_8, N_OFF|L1_4,  N_G|O6|L1_8, N_OFF|L1_4, N_E|O6|L1_8, N_OFF|L1_8,
-    N_OFF|L1_8, N_A|O6|L1_8, N_OFF|L1_8, N_B|O6|L1_8, N_OFF|L1_8, N_AS|O6|L1_8, N_A|O6|L1_8, N_OFF|L1_8,
-    N_G|O6|L1_8, N_OFF|L1_8, N_E|O7|L1_8, N_OFF|L1_8, N_G|O7|L1_8, N_OFF|L1_8, N_A|O7|L1_8, N_OFF|L1_8,
-    N_OFF|L1_8, N_F|O7|L1_8, N_G|O7|L1_8, N_OFF|L1_8, N_E|O7|L1_8, N_OFF|L1_8, N_C|O7|L1_8, N_D|O7|L1_8,
+    N_C|O7|L1_4|_D, N_OFF|L1_4,  N_G|O6|L1_4|_D, N_OFF|L1_4, N_E|O6|L1_4, N_OFF|L1_8,
+    N_OFF|L1_8, N_A|O6|L1_4, N_OFF|L1_8, N_B|O6|L1_4, N_OFF|L1_8, N_AS|O6|L1_8, N_A|O6|L1_4, N_OFF|L1_8,
+    N_G|O6|L1_4, N_OFF|L1_8, N_E|O7|L1_4, N_OFF|L1_8, N_G|O7|L1_4, N_OFF|L1_8, N_A|O7|L1_4, N_OFF|L1_8,
+    N_OFF|L1_8, N_F|O7|L1_8, N_G|O7|L1_4, N_OFF|L1_8, N_E|O7|L1_4, N_OFF|L1_8, N_C|O7|L1_8, N_D|O7|L1_8,
     N_B|O6|L1_8, N_OFF|L1_4,
 };
 
 const word melody3[] PROGMEM = {
-    N_OFF|L1_4, N_G|O7|L1_8, N_FS|O7|L1_8, N_F|O7|L1_8, N_DS|O7|L1_8, N_OFF|L1_8, N_E|O7|L1_8,
+    N_OFF|L1_4, N_G|O7|L1_8, N_FS|O7|L1_8, N_F|O7|L1_8, N_DS|O7|L1_4, N_OFF|L1_8, N_E|O7|L1_8,
     N_OFF|L1_8, N_GS|O6|L1_8, N_A|O6|L1_8, N_C|O7|L1_8, N_OFF|L1_8, N_A|O6|L1_8, N_C|O7|L1_8, N_D|O7|L1_8
 };
 
 const word melody4[] PROGMEM = {
-    N_OFF|L1_4, N_G|O7|L1_8, N_FS|O7|L1_8, N_F|O7|L1_8, N_DS|O7|L1_8, N_OFF|L1_8, N_E|O7|L1_8,
-    N_OFF|L1_8, N_C|O8|L1_8, N_OFF|L1_8, N_C|O8|L1_8, N_C|O8|L1_8, N_OFF|L1_8, N_OFF|L1_4,
+    N_OFF|L1_4, N_G|O7|L1_8, N_FS|O7|L1_8, N_F|O7|L1_8, N_DS|O7|L1_4, N_OFF|L1_8, N_E|O7|L1_8,
+    N_OFF|L1_8, N_C|O8|L1_8, N_OFF|L1_8, N_C|O8|L1_4, N_C|O8|L1_8, N_OFF|L1_8, N_OFF|L1_4,
 };
 const word melody5[] PROGMEM = {
-    N_OFF|L1_4, N_DS|O7|L1_8,  N_OFF|L1_8, N_OFF|L1_8, N_D|O7|L1_8, N_OFF|L1_4, N_C|O7|L1_8,
+    N_OFF|L1_4, N_DS|O7|L1_4,  N_OFF|L1_8, N_OFF|L1_8, N_D|O7|L1_4, N_OFF|L1_4, N_C|O7|L1_2,
     N_OFF|L1_8, N_OFF|L1_4, N_OFF|L1_2
 };
 
