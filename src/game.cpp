@@ -32,43 +32,47 @@ void setup()
     pinMode(LED_YELLOW, OUTPUT);
     pinMode(LED_BLUE, OUTPUT);
     ms.init();
+    DIDR0=0xFF;
     //mySerial.begin(9600);
     //ms.playMusic();
 }
 
-void loop()
-{
-wait_for_button();
-    //    mySerial.print(value);
-//    mySerial.print(" ");
-//    qtBLUE.isButtonTouched(value);
-//    mySerial.print(value);
-//    mySerial.print(" ");
-//    qtYELLOW.isButtonTouched(value);
-//    mySerial.print(value);
-//    mySerial.print(" ");
-//    qtGREEN.isButtonTouched(value);
-//    mySerial.println(value);
-//    delay(2000);
-}
-
-
 //void loop()
 //{
-//    attractMode(); // Blink lights while waiting for user to press a button
-
-//    // Indicate the start of game play
-//    setLEDs(CHOICE_RED | CHOICE_GREEN | CHOICE_BLUE | CHOICE_YELLOW); // Turn all LEDs on
-//    delay(1000);
-//    setLEDs(CHOICE_OFF); // Turn off LEDs
-//    delay(250);
-
-//        // Play memory game and handle result
-//        if (play_memory() == true)
-//            play_winner(); // Player won, play winner tones
-//        else
-//            play_loser(); // Player lost, play loser tones
+//    wait_for_button();
+//    //    mySerial.print(value);
+//    //    mySerial.print(" ");
+//    //    qtBLUE.isButtonTouched(value);
+//    //    mySerial.print(value);
+//    //    mySerial.print(" ");
+//    //    qtYELLOW.isButtonTouched(value);
+//    //    mySerial.print(value);
+//    //    mySerial.print(" ");
+//    //    qtGREEN.isButtonTouched(value);
+//    //    mySerial.println(value);
+//    //    delay(2000);
+//    if(millis()-startTime>1000){
+//        sleepMcu();
+//    }
 //}
+
+
+void loop()
+{
+    attractMode(); // Blink lights while waiting for user to press a button
+
+    // Indicate the start of game play
+    setLEDs(CHOICE_RED | CHOICE_GREEN | CHOICE_BLUE | CHOICE_YELLOW); // Turn all LEDs on
+    delay(1000);
+    setLEDs(CHOICE_OFF); // Turn off LEDs
+    delay(250);
+
+        // Play memory game and handle result
+        if (play_memory() == true)
+            play_winner(); // Player won, play winner tones
+        else
+            play_loser(); // Player lost, play loser tones
+}
 
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 //The following functions are related to game play only
@@ -225,7 +229,9 @@ void play_loser(void)
 // Show an "attract mode" display while waiting for user to press button.
 void attractMode(void)
 {
-    while(1)
+    const unsigned long SLEEPTIMEOUT=30000;
+    unsigned long ulStartTime=millis();
+    while(millis()-ulStartTime < SLEEPTIMEOUT)
     {
         setLEDs(CHOICE_RED);
         delay(100);
@@ -243,4 +249,22 @@ void attractMode(void)
         delay(100);
         if (checkButton() != CHOICE_NONE) return;
     }
+    sleepMcu();
+}
+
+void sleepMcu(){
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    cli();
+    //Try to limit current consumption as much as possible by turning off as much as possible
+    for(byte i=0;i<=10;i++){
+        pinMode(i, INPUT);
+    }
+    bitClear(ADCSRA, ADEN); //disable ADC
+    bitSet(ACSR, ACD); //disable Analog comparator
+    DIDR0=0xFF;//disable digital input buffer for analog pins
+    PRR=0x0F;
+    MCUCR |= _BV(BODS) | _BV(BODSE);
+    sleep_enable();
+    sleep_cpu();
+    //Sleep forever. (until power is cycled, or an unlikely reset condition occurs)
 }

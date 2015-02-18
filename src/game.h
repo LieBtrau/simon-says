@@ -5,6 +5,7 @@
 #include "music.h"
 #include "qtouchadc.h"
 #include "TinyDebugSerial.h"
+#include <avr/sleep.h>
 
 #ifdef __cplusplus
 extern "C" {    //define avr-gcc compiled headers & sources here
@@ -29,10 +30,7 @@ void toner(byte which, int buzz_length_ms);
 byte checkButton(void);
 void play_winner(void);
 void play_loser(void);
-
-
-
-
+void sleepMcu();
 
 #ifdef __cplusplus
 } // extern "C"
