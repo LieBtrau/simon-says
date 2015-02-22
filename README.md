@@ -82,6 +82,7 @@ The [arduino-tiny](https://code.google.com/p/arduino-tiny/) library is by far th
 * [this code has been used as reference](http://wiki.sgmk-ssam.ch/index.php/CapSense_%28QTouchADC%29)
 * [nice explanation about working principle](http://tuomasnylund.fi/drupal6/content/capacitive-touch-sensing-avr-and-single-adc-pin)
 * [Arduino code for QtouchADC](https://github.com/jgeisler0303/QTouchADCArduino)
+
 ## Simon Says application
 The main program is based on [this Sparkfun design](https://www.sparkfun.com/products/10935).
 ## Serial debug port
