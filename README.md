@@ -10,8 +10,10 @@ Simon Says game running on a ATTINY84 with capacitive touch
   * keep it 5mm away from touchpad
 * keep other traces as far apart as possible from a touchpad trace
 * keep enough distance between touchpad traces.
+
 ### Links
 * [Atmel Qtouch](http://www.atmel.com/products/TouchSolutions/touchsoftware/default.aspx?tab=documents)
+
 ## Component choice
 For sake of fast and cheap assembly and to make the finished product fit in an envelope, all components are placed on the same side of the PCB.
 ### Reset button
