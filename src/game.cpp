@@ -19,9 +19,9 @@ TinyDebugSerial mySerial = TinyDebugSerial();
 Music ms(PIN_SPEAKER);
 //Touch limit values are average of untouched and touched conditions.  These are determined by testing each pad.
 QtouchAdc qtBLUE(ADC_Input_ADC0, ADC_Input_ADC1, 140);
-QtouchAdc qtRED(ADC_Input_ADC1, ADC_Input_ADC2, 100);
-QtouchAdc qtGREEN(ADC_Input_ADC2, ADC_Input_ADC3, 100);
-QtouchAdc qtYELLOW(ADC_Input_ADC3, ADC_Input_ADC0, 100);
+QtouchAdc qtRED(ADC_Input_ADC1, ADC_Input_ADC2, 140);
+QtouchAdc qtGREEN(ADC_Input_ADC2, ADC_Input_ADC3, 140);
+QtouchAdc qtYELLOW(ADC_Input_ADC3, ADC_Input_ADC0, 140);
 
 void setup()
 {
@@ -40,20 +40,6 @@ void setup()
 //void loop()
 //{
 //    wait_for_button();
-//    //    mySerial.print(value);
-//    //    mySerial.print(" ");
-//    //    qtBLUE.isButtonTouched(value);
-//    //    mySerial.print(value);
-//    //    mySerial.print(" ");
-//    //    qtYELLOW.isButtonTouched(value);
-//    //    mySerial.print(value);
-//    //    mySerial.print(" ");
-//    //    qtGREEN.isButtonTouched(value);
-//    //    mySerial.println(value);
-//    //    delay(2000);
-//    if(millis()-startTime>1000){
-//        sleepMcu();
-//    }
 //}
 
 
@@ -66,12 +52,15 @@ void loop()
     delay(1000);
     setLEDs(CHOICE_OFF); // Turn off LEDs
     delay(250);
+    if(checkButton()==CHOICE_RED){
+        ms.playMusic();
+    }
 
-        // Play memory game and handle result
-        if (play_memory() == true)
-            play_winner(); // Player won, play winner tones
-        else
-            play_loser(); // Player lost, play loser tones
+    // Play memory game and handle result
+    if (play_memory() == true)
+        play_winner(); // Player won, play winner tones
+    else
+        play_loser(); // Player lost, play loser tones
 }
 
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -266,5 +255,5 @@ void sleepMcu(){
     MCUCR |= _BV(BODS) | _BV(BODSE);
     sleep_enable();
     sleep_cpu();
-    //Sleep forever. (until power is cycled, or an unlikely reset condition occurs)
+    //Sleep forever. (until power is cycled, or a reset condition occurs)
 }

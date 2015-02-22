@@ -14,10 +14,10 @@ const word melody1[] PROGMEM = {
 };
 
 const word melody2[] PROGMEM = {
-    N_C|O7|L1_4|_D, N_OFF|L1_4,  N_G|O6|L1_4|_D, N_OFF|L1_4, N_E|O6|L1_4, N_OFF|L1_8,
-    N_OFF|L1_8, N_A|O6|L1_4, N_OFF|L1_8, N_B|O6|L1_4, N_OFF|L1_8, N_AS|O6|L1_8, N_A|O6|L1_4, N_OFF|L1_8,
-    N_G|O6|L1_4, N_OFF|L1_8, N_E|O7|L1_4, N_OFF|L1_8, N_G|O7|L1_4, N_OFF|L1_8, N_A|O7|L1_4, N_OFF|L1_8,
-    N_OFF|L1_8, N_F|O7|L1_8, N_G|O7|L1_4, N_OFF|L1_8, N_E|O7|L1_4, N_OFF|L1_8, N_C|O7|L1_8, N_D|O7|L1_8,
+    N_OFF|L1_8,N_C|O7|L1_8, N_OFF|L1_4, N_G|O6|L1_8, N_OFF|L1_4, N_E|O6|L1_8,N_OFF|L1_8,
+    N_OFF|L1_8,N_A|O6|L1_8, N_OFF|L1_8, N_B|O6|L1_8, N_OFF|L1_8, N_AS|O6|L1_8, N_A|O6|L1_8,N_OFF|L1_8,
+    N_G|O6|L1_8, N_OFF|L1_8, N_E|O7|L1_8, N_OFF|L1_8, N_G|O7|L1_8, N_OFF|L1_8, N_A|O7|L1_8, N_OFF|L1_8, N_F|O7|L1_8, N_G|O7|L1_8,
+    N_OFF|L1_8, N_E|O7|L1_8, N_OFF|L1_8,  N_C|O7|L1_8, N_D|O7|L1_8,
     N_B|O6|L1_8, N_OFF|L1_4,
 };
 
@@ -73,22 +73,12 @@ void Music::playTone(word freq, word duration){
 }
 
 void Music::playMusic(){
-    sing(melody1, sizeof(melody1)/sizeof(word));
     sing(melody2, sizeof(melody2)/sizeof(word));
     sing(melody2, sizeof(melody2)/sizeof(word));
     sing(melody3, sizeof(melody3)/sizeof(word));
     sing(melody4, sizeof(melody4)/sizeof(word));
     sing(melody3, sizeof(melody3)/sizeof(word));
     sing(melody5, sizeof(melody5)/sizeof(word));
-//    sing(melody3, sizeof(melody3)/sizeof(word));
-//    sing(melody4, sizeof(melody4)/sizeof(word));
-//    sing(melody6, sizeof(melody6)/sizeof(word));
-//    sing(melody7, sizeof(melody7)/sizeof(word));
-//    sing(melody8, sizeof(melody8)/sizeof(word));
-//    sing(melody7, sizeof(melody7)/sizeof(word));
-//    sing(melody1, sizeof(melody1)/sizeof(word));
-//    sing(melody2, sizeof(melody2)/sizeof(word));
-//    sing(melody2, sizeof(melody2)/sizeof(word));
 }
 
 // Play the winner sound
