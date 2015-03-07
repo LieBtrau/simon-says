@@ -4,8 +4,8 @@
 
 #include "qtouchadc.h"
 
-QtouchAdc::QtouchAdc(adc_ic_t sensorPinADC, adc_ic_t partnerPinADC, word wTouchLimit):
-    _sensorBitnr(sensorPinADC), _partnerBitnr(partnerPinADC), _iTouchLimit(wTouchLimit)
+QtouchAdc::QtouchAdc(adc_ic_t sensorPinADC, adc_ic_t partnerPinADC, byte touchLimit):
+    _sensorBitnr(sensorPinADC), _partnerBitnr(partnerPinADC), _yTouchLimit(touchLimit)
 {
     _pinMask=_BV(_sensorBitnr) | _BV(_partnerBitnr);
 }
@@ -19,15 +19,22 @@ QtouchAdc::~QtouchAdc()
     while(ADC_ConversionInProgress());
 }
 
-bool QtouchAdc::isButtonTouched(int& iTouchValue){
-    iTouchValue=touchProbe2();
-    return iTouchValue>_iTouchLimit;
+void QtouchAdc::debug(word &diff, unsigned long &avg){
+    touchProbe2(diff, avg);
+}
+
+bool QtouchAdc::isButtonTouched(){
+    word diff;
+    unsigned long avg;
+    touchProbe2(diff, avg);
+    return avg/diff < _yTouchLimit;
 }
 
 //Don't try to use digitalWrite & pinMode, they influence the measurement result
-int QtouchAdc::touchProbe2(){
+void QtouchAdc::touchProbe2(word& diff, unsigned long &sum){
     const byte CTR=2;//pick a value from 0 to 7 for the loop counter.  Number of loops is 2^CTR
-    int result=0;
+    int idiff=0;
+    sum=0;
 
     for(byte i=0;i<_BV(CTR);i++){
         ADC_SetInputChannel(_partnerBitnr);
@@ -40,8 +47,9 @@ int QtouchAdc::touchProbe2(){
         ADC_SetInputChannel(_sensorBitnr);
         ADC_StartConversion();
         while(ADC_ConversionInProgress());
-        result=((i&1)==0 ? result+ADC_GetDataRegister() : result-ADC_GetDataRegister());
+        int adcVal=ADC_GetDataRegister();
+        idiff=((i&1)==0 ? idiff+adcVal : idiff-adcVal);
+        sum+=adcVal;
     }
-
-    return result>>(CTR-1);
+    diff=abs(idiff)>>(CTR-1);
 }

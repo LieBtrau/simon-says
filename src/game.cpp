@@ -18,10 +18,10 @@ const byte PIN_SPEAKER=5;
 TinyDebugSerial mySerial = TinyDebugSerial();
 Music ms(PIN_SPEAKER);
 //Touch limit values are average of untouched and touched conditions.  These are determined by testing each pad.
-QtouchAdc qtBLUE(ADC_Input_ADC0, ADC_Input_ADC1, 140);
-QtouchAdc qtRED(ADC_Input_ADC1, ADC_Input_ADC2, 140);
-QtouchAdc qtGREEN(ADC_Input_ADC2, ADC_Input_ADC3, 140);
-QtouchAdc qtYELLOW(ADC_Input_ADC3, ADC_Input_ADC0, 140);
+QtouchAdc qtBLUE(ADC_Input_ADC0, ADC_Input_ADC1, 15);
+QtouchAdc qtRED(ADC_Input_ADC1, ADC_Input_ADC2, 15);
+QtouchAdc qtGREEN(ADC_Input_ADC2, ADC_Input_ADC3, 15);
+QtouchAdc qtYELLOW(ADC_Input_ADC3, ADC_Input_ADC0, 15);
 
 void setup()
 {
@@ -33,13 +33,33 @@ void setup()
     pinMode(LED_BLUE, OUTPUT);
     ms.init();
     DIDR0=0xFF;
-    //mySerial.begin(9600);
+    mySerial.begin(9600);
     //ms.playMusic();
 }
 
+//void loop(){
+//    wait_for_button();
+//}
+
 //void loop()
 //{
-//    wait_for_button();
+//    word diff;
+//    unsigned long avg;
+//    qtRED.debug(diff, avg);
+//    mySerial.print(avg/diff);
+//    mySerial.print(" ");
+//    qtGREEN.debug(diff, avg);
+//    mySerial.print(avg/diff);
+//    mySerial.print(" ");
+
+//    qtBLUE.debug(diff, avg);
+//    mySerial.print(avg/diff);
+//    mySerial.print(" ");
+
+//    qtYELLOW.debug(diff, avg);
+//    mySerial.print(avg/diff);
+//    mySerial.println(" ");
+//    delay(500);
 //}
 
 
@@ -140,17 +160,16 @@ byte wait_for_button(void)
 // Returns a '1' bit in the position corresponding to CHOICE_RED, CHOICE_GREEN, etc.
 byte checkButton(void)
 {
-    int value;
-    if(qtRED.isButtonTouched(value)){
+    if(qtRED.isButtonTouched()){
         return CHOICE_RED;
     }
-    if(qtBLUE.isButtonTouched(value)){
+    if(qtBLUE.isButtonTouched()){
         return CHOICE_BLUE;
     }
-    if(qtYELLOW.isButtonTouched(value)){
+    if(qtYELLOW.isButtonTouched()){
         return CHOICE_YELLOW;
     }
-    if(qtGREEN.isButtonTouched(value)){
+    if(qtGREEN.isButtonTouched()){
         return CHOICE_GREEN;
     }
     return(CHOICE_OFF); // If no button is pressed, return none
