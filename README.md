@@ -64,6 +64,10 @@ The ATTiny84A has been chosen as microcontroller for this project because:
 * low current consumption in sleep mode
 
 ## PCB
+### PCB Data
+* [Schematic & Assembly Drawing](https://drive.google.com/file/d/0B5_mAlpV8IjvMFdkV2ZINGlpMnM/view?usp=sharing)
+* [Gerber data](https://drive.google.com/file/d/0B5_mAlpV8Ijvckd2Sk1obE5RMVE/view?usp=sharing)
+* [Bill of Materials](https://drive.google.com/file/d/0B5_mAlpV8IjvdFphNDRiM1pQOTg/view?usp=sharing)
 ### Manufacturer
 [PCBShopper](http://pcbshopper.com/) allows to select a PCB manufacturer based on several parameters.
 ### Artwork
