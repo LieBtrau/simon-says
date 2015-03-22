@@ -68,12 +68,15 @@ The ATTiny84A has been chosen as microcontroller for this project because:
 * [Schematic & Assembly Drawing](https://drive.google.com/file/d/0B5_mAlpV8IjvMFdkV2ZINGlpMnM/view?usp=sharing)
 * [Gerber data](https://drive.google.com/file/d/0B5_mAlpV8Ijvckd2Sk1obE5RMVE/view?usp=sharing)
 * [Bill of Materials](https://drive.google.com/file/d/0B5_mAlpV8IjvdFphNDRiM1pQOTg/view?usp=sharing)
+
 ### Manufacturer
 [PCBShopper](http://pcbshopper.com/) allows to select a PCB manufacturer based on several parameters.
+
 ### Artwork
 #### Images
 Images on the touch pads have been downloaded from [MegaIcons](http://megaicons.net/tag/365/).
 The baby in the center is taken from the [Mario & Luigi TrueTypeFont](http://www.fontspace.com/24hourfonts/mario-and-luigi)
+
 #### Text
 The font for the text is [Super Mario 256](http://www.mariomayhem.com/downloads/super_mario_fonts/super_mario_256.zip).
 With LibreOffice Draw, the text has been fit to an arch.
