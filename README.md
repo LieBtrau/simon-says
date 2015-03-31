@@ -65,6 +65,8 @@ The ATTiny84A has been chosen as microcontroller for this project because:
 
 ## PCB
 ### PCB Data
+* ![Top View 3D](https://drive.google.com/file/d/0B5_mAlpV8IjvemRKdlp1MDVlbU0/view?usp=sharing)
+* ![Bottom View 3D](https://drive.google.com/file/d/0B5_mAlpV8IjvdWlIb2RGRmp5OWs/view?usp=sharing)
 * [Schematic & Assembly Drawing](https://drive.google.com/file/d/0B5_mAlpV8IjvMFdkV2ZINGlpMnM/view?usp=sharing)
 * [Gerber data](https://drive.google.com/file/d/0B5_mAlpV8Ijvckd2Sk1obE5RMVE/view?usp=sharing)
 * [Bill of Materials](https://drive.google.com/file/d/0B5_mAlpV8IjvdFphNDRiM1pQOTg/view?usp=sharing)
