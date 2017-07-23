@@ -102,4 +102,4 @@ Debugging can be quite hard when you don't know what's happening inside the devi
 There are libraries available to generate tones with the ATTiny, but none of them seemed to work correctly, so I ended up writing my own.
 ## Melody
 There's an easter egg.  When you hit the correct touch pad when resetting the board, you'll hear the Arduino Overworld theme, written by Kenji Kodo.
-The music here is based on [this music score](http://www.mariopiano.com/mario-sheet-music-overworld-main-theme.html).
+The music here is based on [this music score](http://www.mariopiano.com/mario-sheet-music-overworld-main-theme.html).  It would have saved me a lot of time if I had known [this website](https://musescore.org/) that contains a huge library of music scores and [how to convert music-XML (=.mxl) to Arduino](http://www.instructables.com/id/Translate-Songs-to-Be-Played-on-Arduino/).
