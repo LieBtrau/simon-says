@@ -103,3 +103,4 @@ There are libraries available to generate tones with the ATTiny, but none of the
 ## Melody
 There's an easter egg.  When you hit the correct touch pad when resetting the board, you'll hear the Arduino Overworld theme, written by Kenji Kodo.
 The music here is based on [this music score](http://www.mariopiano.com/mario-sheet-music-overworld-main-theme.html).  It would have saved me a lot of time if I had known [this website](https://musescore.org/) that contains a huge library of music scores and [how to convert music-XML (=.mxl) to Arduino](http://www.instructables.com/id/Translate-Songs-to-Be-Played-on-Arduino/).
+An alternative to music-XML is [RTTTL](https://github.com/spicajames/Rtttl), with many links to music on [this website](https://code.google.com/archive/p/rogue-code/wikis/ToneLibraryDocumentation.wiki).
